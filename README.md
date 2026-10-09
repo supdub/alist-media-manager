@@ -22,6 +22,7 @@ On Linux/macOS, restrict this file to its owner (`chmod 600`). On Windows, use a
 python3 scripts/alist.py list /YOUR-MOUNT
 python3 scripts/alist.py --config /private/access.json crawl /YOUR-MOUNT/Movies
 python3 scripts/probe_media.py --config /private/access.json '/YOUR-MOUNT/Movies/Title/video.mkv'
+python3 scripts/check_subtitle.py --config /private/access.json '/YOUR-MOUNT/Movies/Title/video.srt'
 ```
 
 The bundled API and MP4/Matroska metadata helpers use the Python standard library. Container inspection uses finite HTTP ranges and a bounded byte budget. Frame sampling, legacy formats, and subtitle timing checks need suitable additional tools. A missing subtitle track does not rule out captions burned into the picture.

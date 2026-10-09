@@ -1,0 +1,5 @@
+*access*.json
+*token*
+.env*
+__pycache__/
+inventory*.json

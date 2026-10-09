@@ -1,0 +1,16 @@
+---
+name: alist-media-manager
+description: Manage AList-mounted cloud folders, organize movie and TV libraries with verified metadata IDs, preserve matched subtitles, and audit Japanese media for missing subtitles.
+---
+
+Use the configured AList API; keep credentials and signed download URLs outside this shareable skill. Resolve access from ALIST_CONFIG or ~/.config/alist/access.json (JSON keys url, username, password). Workspace access may be supplied through a local ignored config. Never commit configs, tokens, raw signed URLs, or private inventories.
+
+Use scripts/alist.py for authenticated complete listings and recursive inventories. AList filesystem API: https://alistgo.com/guide/api/fs.html. Check the installed server version; documentation may describe newer behavior. Mutating calls use Client.call; rename: /api/fs/rename {path,name}; move: /api/fs/move {src_dir,dst_dir,names}; mkdir: /api/fs/mkdir {path}. Avoid deletion unless explicitly requested.
+
+Inventory source and destination before writes. Match the existing library naming convention and obtain metadata from authoritative TMDB/IMDb records. Do not invent IDs, infer a season from its ordinal release chunk, or force ambiguous titles into a match. Keep future announcements and empty folders distinguishable from actual video files. Mixed franchises require separating movies, TV seasons, specials, and extras by verified identity.
+
+Create a concrete mapping and a local journal containing old/new paths, sizes, operation and verification. Before a rename or move, confirm the exact source exists and destination does not collide. If a title already exists, preserve distinct editions and merge only non-conflicting content. Stop on ambiguous duplicates. Perform moves within the same mount. After each operation refresh both paths, verify source disappearance and destination contents/sizes. An API success can mean an asynchronous task: inspect task status and filesystem state before proceeding. After a timeout inspect state before retrying; never blindly replay mutations.
+
+Subtitle matching must follow the exact video basename, with optional language/forced/SDH suffixes. Preserve language tags, .idx/.sub pairs, fonts, attachments and alternate subtitle versions. Map each episode individually; do not rename by array order. Inspect subtitle contents when language or episode identity is uncertain. Do not claim synchronization from filenames alone.
+
+For the final audit recursively enumerate every movie and TV video, including specials and alternate editions. Establish audio language using media stream metadata where accessible, otherwise report title-origin inference separately. Count matched external subtitles and embedded subtitle streams. Lack of sidecar files alone does not establish missing subtitles: inspect container streams, and consider burned-in subtitles through frame sampling or reliable release evidence. Treat inaccessible files, untagged language tracks, and burn-in uncertainty as unknown, not confirmed missing. Report confirmed missing files by title/season/episode, plus unresolved cases and coverage counts. Keep private reports local and summarize actionable results in chat.

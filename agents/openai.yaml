@@ -1,0 +1,4 @@
+interface:
+  display_name: "AList Media Manager"
+  short_description: "Organize AList libraries and audit Japanese subtitles"
+  default_prompt: "Use $alist-media-manager to organize my AList media and check subtitle availability."

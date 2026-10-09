@@ -4,7 +4,7 @@ A shareable Codex skill for organizing AList-mounted movie and TV libraries whil
 
 ## Install
 
-Copy this repository into `~/.codex/skills/alist-media-manager`, or use your Codex skill installer with this repository. Restart or open a new Codex chat to discover the skill. The skill entry point is `SKILL.md`.
+Copy this repository into `~/.agents/skills/alist-media-manager`, or use your Codex skill installer with this repository. Codex discovers installed skills automatically; restart or open a new chat if it does not appear. The skill entry point is `SKILL.md`. See [official local skill installation guidance](https://developers.openai.com/codex/skills#where-to-save-skills).
 
 ## Configure private access
 

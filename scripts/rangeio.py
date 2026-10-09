@@ -1,6 +1,6 @@
 import io,urllib.request
 class RangeIO(io.RawIOBase):
- def __init__(self,url,size,limit=8,chunk=1048576):self.url=url;self.size=size;self.pos=0;self.cache={};self.limit=limit;self.chunk=chunk;self.exhausted=False;self.failure=None
+ def __init__(self,url,size,limit=8,chunk=1048576,timeout=15):self.url=url;self.size=size;self.pos=0;self.cache={};self.limit=limit;self.chunk=chunk;self.exhausted=False;self.failure=None;self.timeout=timeout
  def readable(self):return True
  def seekable(self):return True
  def seek(self,offset,whence=0):
@@ -22,7 +22,7 @@ class RangeIO(io.RawIOBase):
     start=block*self.chunk;end=min(start+self.chunk-1,self.size-1)
     req=urllib.request.Request(self.url,headers={'Range':f'bytes={start}-{end}','User-Agent':'Mozilla/5.0'})
     try:
-     with urllib.request.urlopen(req,timeout=15) as r:
+     with urllib.request.urlopen(req,timeout=self.timeout) as r:
       if r.status!=206 and start!=0:raise OSError('Range unsupported')
       self.cache[block]=r.read(end-start+1)
     except Exception as e:
